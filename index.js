@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Load Twilio Credentials from .env file
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+console.log(accountSid, authToken);
 const twilioNumber = "whatsapp:+14155238886"; // Twilio Sandbox Number
 const client = new twilio(accountSid, authToken);
 
