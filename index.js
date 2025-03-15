@@ -20,6 +20,7 @@ const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name]);
 
 // Function to Search Data in Excel
 const searchExcel = (query) => {
+  console.log(query);
   const result = data.filter((row) =>
     Object.values(row).some((value) =>
       String(value).toLowerCase().includes(query.toLowerCase())
