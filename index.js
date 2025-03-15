@@ -22,32 +22,26 @@ console.log("Excel Data Loaded: ", data);
 
 // Function to Search Data in Excel
 const searchExcel = (query) => {
-  if (!query || !data.length) return "No data available.";
-
-  console.log("Searching for:", query); // ✅ Debug: Check the incoming query
-
   const result = data.filter((row) =>
-    Object.values(row)
-      .map((value) => String(value).trim().toLowerCase()) // Trim spaces, lowercase
-      .some((value) => value.includes(query.trim().toLowerCase()))
+    Object.values(row).some((value) =>
+      String(value).toLowerCase().includes(query.toLowerCase())
+    )
   );
 
-  console.log("Search Result:", result); // ✅ Debug: See if any matches are found
-
+  console.log("Search Result: ", result);
   return result.length
     ? JSON.stringify(result, null, 2)
-    : "No matching data found. Try rephrasing.";
+    : "No matching data found.";
 };
 
 // WhatsApp Webhook
 app.post("/whatsapp", async (req, res) => {
-  const messageBody = req.body.Body ? req.body.Body.trim() : "";
+  const messageBody = req.body.Body.trim();
   const sender = req.body.From;
 
-  console.log(`Received: "${messageBody}" from ${sender}`); // ✅ Debug: Check incoming messages
+  console.log(`Received: ${messageBody} from ${sender}`);
 
   let responseText = searchExcel(messageBody);
-  console.log("Response Sent:", responseText); // ✅ Debug: See response before sending
 
   // Send response back to WhatsApp
   await client.messages.create({
