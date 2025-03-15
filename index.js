@@ -18,8 +18,6 @@ const workbook = XLSX.readFile("data.xlsx");
 const sheet_name = workbook.SheetNames[0];
 const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name]);
 
-console.log("Excel Data Loaded: ", data);
-
 // Function to Search Data in Excel
 const searchExcel = (query) => {
   const result = data.filter((row) =>
@@ -27,8 +25,6 @@ const searchExcel = (query) => {
       String(value).toLowerCase().includes(query.toLowerCase())
     )
   );
-
-  console.log("Search Result: ", result);
   return result.length
     ? JSON.stringify(result, null, 2)
     : "No matching data found.";
