@@ -10,13 +10,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Load Twilio Credentials from .env file
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber = "+17754149653"; // Twilio Sandbox Number
+const twilioNumber = "whatsapp:+17754149653"; // Twilio Sandbox Number
 const client = new twilio(accountSid, authToken);
 
 // Load Excel Data
 const workbook = XLSX.readFile("data.xlsx");
 const sheet_name = workbook.SheetNames[0];
 const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name]);
+
+console.log("Excel Data Loaded: ", data);
 
 // Function to Search Data in Excel
 const searchExcel = (query) => {
@@ -25,6 +27,8 @@ const searchExcel = (query) => {
       String(value).toLowerCase().includes(query.toLowerCase())
     )
   );
+
+  console.log("Search Result: ", result);
   return result.length
     ? JSON.stringify(result, null, 2)
     : "No matching data found.";
