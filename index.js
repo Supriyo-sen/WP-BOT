@@ -39,6 +39,7 @@ app.post("/whatsapp", async (req, res) => {
 
   let responseText = searchExcel(messageBody);
 
+  console.log(`Responding with: ${responseText}`);
   // Send response back to WhatsApp
   await client.messages.create({
     from: twilioNumber,
